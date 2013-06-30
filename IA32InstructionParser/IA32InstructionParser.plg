@@ -1,0 +1,76 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: IA32InstructionParser - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "F:\TEMP\RSP34BC.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "IA32INSTRUCTIONPARSER_EXPORTS" /Fp"Debug/IA32InstructionParser.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\Project\Disassembler\IA32InstructionParser\IA32DisplacementPart.cpp"
+"D:\Project\Disassembler\IA32InstructionParser\IA32ImmediatePart.cpp"
+"D:\Project\Disassembler\IA32InstructionParser\IA32InstructionBody.cpp"
+"D:\Project\Disassembler\IA32InstructionParser\IA32InstructionParser.cpp"
+"D:\Project\Disassembler\IA32InstructionParser\IA32ModrmPart.cpp"
+"D:\Project\Disassembler\IA32InstructionParser\IA32OpcodePart.cpp"
+"D:\Project\Disassembler\IA32InstructionParser\IA32PrefixPart.cpp"
+"D:\Project\Disassembler\IA32InstructionParser\InstructionParserImpl.cpp"
+]
+Creating command line "cl.exe @F:\TEMP\RSP34BC.tmp" 
+Creating temporary file "F:\TEMP\RSP34BD.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "IA32INSTRUCTIONPARSER_EXPORTS" /Fp"Debug/IA32InstructionParser.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\Project\Disassembler\IA32InstructionParser\StdAfx.cpp"
+]
+Creating command line "cl.exe @F:\TEMP\RSP34BD.tmp" 
+Creating temporary file "F:\TEMP\RSP34BE.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"Debug/IA32Parser.pdb" /debug /machine:I386 /out:"Debug/IA32Parser.dll" /implib:"Debug/IA32Parser.lib" /pdbtype:sept 
+.\Debug\IA32DisplacementPart.obj
+.\Debug\IA32ImmediatePart.obj
+.\Debug\IA32InstructionBody.obj
+.\Debug\IA32InstructionParser.obj
+.\Debug\IA32ModrmPart.obj
+.\Debug\IA32OpcodePart.obj
+.\Debug\IA32PrefixPart.obj
+.\Debug\InstructionParserImpl.obj
+.\Debug\StdAfx.obj
+]
+Creating command line "link.exe @F:\TEMP\RSP34BE.tmp"
+<h3>Output Window</h3>
+Compiling...
+StdAfx.cpp
+Compiling...
+IA32DisplacementPart.cpp
+IA32ImmediatePart.cpp
+IA32InstructionBody.cpp
+IA32InstructionParser.cpp
+IA32ModrmPart.cpp
+IA32OpcodePart.cpp
+IA32PrefixPart.cpp
+InstructionParserImpl.cpp
+Generating Code...
+Linking...
+   Creating library Debug/IA32Parser.lib and object Debug/IA32Parser.exp
+Creating temporary file "F:\TEMP\RSP34C2.bat" with contents
+[
+@echo off
+copy .\Debug\IA32Parser.DLL                     .\..\debug\IA32Parser.dll
+copy .\Debug\IA32Parser.Lib                     .\..\Lib\IA32Parser.Lib
+copy IA32InstructionParser.h                     .\..\Include\IA32InstructionParser.h
+]
+Creating command line "F:\TEMP\RSP34C2.bat"
+Copying...
+        1 file(s) copied.
+        1 file(s) copied.
+        1 file(s) copied.
+
+
+
+<h3>Results</h3>
+IA32Parser.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

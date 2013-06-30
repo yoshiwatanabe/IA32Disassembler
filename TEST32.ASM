@@ -1,0 +1,2311 @@
+.586p
+
+CODE32	Segment Public	use32 'Code'
+
+
+	Assume	CS:CODE32,DS:CODE32,ES:CODE32
+
+include iammx.inc
+
+.586p
+
+databyte db 0
+dataword dw 0
+datadword dd 0
+
+PUBLIC _use32_begin
+_use32_begin:
+
+TEST_OVERRIDES32 PROC
+        MOV     AL,DATABYTE
+        MOV     AX,DATAWORD
+        MOV     EAX,DATADWORD
+
+        MOV     AL,DS:DATABYTE
+        MOV     AX,DS:DATAWORD
+        MOV     EAX,DS:DATADWORD
+
+        MOV     AL,ES:DATABYTE
+        MOV     AX,ES:DATAWORD
+        MOV     EAX,ES:DATADWORD
+
+        MOV     AL,SS:DATABYTE
+        MOV     AX,SS:DATAWORD
+        MOV     EAX,SS:DATADWORD
+
+        MOV     AL,CS:DATABYTE
+        MOV     AX,CS:DATAWORD
+        MOV     EAX,CS:DATADWORD
+
+        MOV     AL,FS:DATABYTE
+        MOV     AX,FS:DATAWORD
+        MOV     EAX,FS:DATADWORD
+
+        MOV     AL,GS:DATABYTE
+        MOV     AX,GS:DATAWORD
+        MOV     EAX,GS:DATADWORD
+
+        RET
+TEST_OVERRIDES32 ENDP
+
+
+TESTCODE32 PROC
+        AAA
+        AAD
+        AAM
+        AAS
+
+        ADC     AL,12H
+        ADC     AX,1234H
+        ADC     EAX,12345678H
+        ADC     BL,12H
+        ADC     DATABYTE,12H
+        ADC     BX,1234H
+        ADC     DATAWORD,1234H
+        ADC     EBX,12345678H
+        ADC     DATADWORD,12345678H
+        ADC     BX,12H
+        ADC     DATAWORD,12H
+        ADC     EBX,12H
+        ADC     DATADWORD,-12H
+        ADC     BL,CL
+        ADC     DATABYTE,BL
+        ADC     BX,CX
+        ADC     DATAWORD,BX
+        ADC     EBX,ECX
+        ADC     DATADWORD,EBX
+        ADC     BL,DATABYTE
+        ADC     BX,DATAWORD
+        ADC     EBX,DATADWORD
+
+        ADD     AL,12H
+        ADD     AX,1234H
+        ADD     EAX,12345678H
+        ADD     BL,12H
+        ADD     DATABYTE,12H
+        ADD     BX,1234H
+        ADD     DATAWORD,1234H
+        ADD     EBX,12345678H
+        ADD     DATADWORD,12345678H
+        ADD     BX,12H
+        ADD     DATAWORD,12H
+        ADD     EBX,12H
+        ADD     DATADWORD,-12H
+        ADD     BL,CL
+        ADD     DATABYTE,BL
+        ADD     BX,CX
+        ADD     DATAWORD,BX
+        ADD     EBX,ECX
+        ADD     DATADWORD,EBX
+        ADD     BL,DATABYTE
+        ADD     BX,DATAWORD
+        ADD     EBX,DATADWORD
+
+        AND     AL,12H
+        AND     AX,1234H
+        AND     EAX,12345678H
+        AND     BL,12H
+        AND     DATABYTE,12H
+        AND     BX,1234H
+        AND     DATAWORD,1234H
+        AND     EBX,12345678H
+        AND     DATADWORD,12345678H
+        AND     BX,12H
+        AND     DATAWORD,12H
+        AND     EBX,12H
+        AND     DATADWORD,-12H
+        AND     BL,CL
+        AND     DATABYTE,BL
+        AND     BX,CX
+        AND     DATAWORD,BX
+        AND     EBX,ECX
+        AND     DATADWORD,EBX
+        AND     BL,DATABYTE
+        AND     BX,DATAWORD
+        AND     EBX,DATADWORD
+
+        ARPL    BX,CX
+        ARPL    DATAWORD,BX
+
+;;      BOUND   BX,[DATAWORD]
+;;      BOUND   EBX,[DATADWORD]
+
+        BSF     BX,CX
+        BSF     BX,DATAWORD
+
+        BSF     EBX,ECX
+        BSF     EBX,DATADWORD
+
+        BSR     EBX,ECX
+        BSR     EBX,DATADWORD
+
+        BT      BX,CX
+        BT      DATAWORD,BX
+        BT      EBX,ECX
+        BT      DATADWORD,EBX
+        BT      BX,12H
+        BT      DATAWORD,12H
+        BT      EBX,12H
+        BT      DATADWORD,12H
+
+        BTC     BX,CX
+        BTC     DATAWORD,BX
+        BTC     EBX,ECX
+        BTC     DATADWORD,EBX
+        BTC     BX,12H
+        BTC     DATAWORD,12H
+        BTC     EBX,12H
+        BTC     DATADWORD,12H
+
+        BTR     BX,CX
+        BTR     DATAWORD,BX
+        BTR     EBX,ECX
+        BTR     DATADWORD,EBX
+        BTR     BX,12H
+        BTR     DATAWORD,12H
+        BTR     EBX,12H
+        BTR     DATADWORD,12H
+
+        BTS     BX,CX
+        BTS     DATAWORD,BX
+        BTS     EBX,ECX
+        BTS     DATADWORD,EBX
+        BTS     BX,12H
+        BTS     DATAWORD,12H
+        BTS     EBX,12H
+        BTS     DATADWORD,12H
+
+        CALL    TESTCODE32
+	CALL	DWORD PTR [EBX]
+        CALL    FWORD PTR [EBX]
+        
+        CBW
+        CWDE
+        CLC
+        CLD
+        CLI
+        CLTS
+        CMC
+
+        CMP     AL,12H
+        CMP     AX,1234H
+        CMP     EAX,12345678H
+        CMP     BL,12H
+        CMP     DATABYTE,12H
+        CMP     BX,1234H
+        CMP     DATAWORD,1234H
+        CMP     EBX,12345678H
+        CMP     DATADWORD,12345678H
+        CMP     BX,12H
+        CMP     DATAWORD,12H
+        CMP     EBX,12H
+        CMP     DATADWORD,-12H
+        CMP     BL,CL
+        CMP     DATABYTE,BL
+        CMP     BX,CX
+        CMP     DATAWORD,BX
+        CMP     EBX,ECX
+        CMP     DATADWORD,EBX
+        CMP     BL,DATABYTE
+        CMP     BX,DATAWORD
+        CMP     EBX,DATADWORD
+
+        CMPSB
+        CMPSW
+        CMPSD
+
+        CWD
+        CDQ
+        DAA
+        DAS
+        DEC     BL
+        DEC     BYTE PTR [EBX]
+        DEC     WORD PTR [EBX]
+        DEC     DWORD PTR [EBX]
+        DEC     DATABYTE
+        DEC     BX
+        DEC     DATAWORD
+        DEC     EBX   
+        DEC     DATADWORD
+
+        DIV     BL
+        DIV     BX
+        DIV     EBX
+        DIV     DATABYTE
+        DIV     DATAWORD
+        DIV     DATADWORD 
+
+        ENTER   500,20
+        HLT
+
+        IDIV     BL
+        IDIV     BX
+        IDIV     EBX
+        IDIV     DATABYTE
+        IDIV     DATAWORD
+        IDIV     DATADWORD 
+
+        IMUL    BL
+        IMUL    BX
+        IMUL    EBX
+        IMUL    DATABYTE
+        IMUL    DATAWORD
+        IMUL    DATADWORD
+        IMUL    BX,CX
+        IMUL    EBX,ECX
+        IMUL    BX,DATAWORD
+        IMUL    EBX,DATADWORD
+        IMUL    BX,CX,-20
+        IMUL    EBX,ECX,20
+        IMUL    BX,DATAWORD,20
+        IMUL    EBX,DATADWORD,20
+        IMUL    BX,20
+        IMUL    EBX,20
+        IMUL    BX,CX,1234H
+        IMUL    EBX,ECX,12345678H
+        IMUL    BX,DATAWORD,1234H
+        IMUL    EBX,DATADWORD,12345678H
+        IMUL    BX,1234H
+        IMUL    EBX,12345678H
+
+        IN      AL,20H
+        IN      AX,20H
+        IN      EAX,20H
+        IN      AL,DX
+        IN      AX,DX
+        IN      EAX,DX
+
+        INC     BL
+        INC     BYTE PTR [EBX]
+        INC     WORD PTR [EBX]
+        INC     DWORD PTR [EBX]
+        INC     DATABYTE
+        INC     BX
+        INC     DATAWORD
+        INC     EBX   
+        INC     DATADWORD
+
+        INSB
+        INSW
+        INSD
+
+        INT     3
+        INT     21
+        INTO
+        IRET
+        IRETD
+
+	JO	TESTCODE32
+	JNO	TESTCODE32
+	JB  	TESTCODE32
+	JAE	TESTCODE32
+	JZ   	TESTCODE32
+	JNZ	TESTCODE32
+	JNA	TESTCODE32
+	JA 	TESTCODE32
+	JS 	TESTCODE32
+	JNS 	TESTCODE32
+	JP  	TESTCODE32
+	JPO 	TESTCODE32
+	JL  	TESTCODE32
+	JNL 	TESTCODE32
+	JLE 	TESTCODE32
+	JG  	TESTCODE32
+NEARLABEL:
+	JO	NEARLABEL
+	JNO	NEARLABEL
+	JB  	NEARLABEL
+	JAE	NEARLABEL
+	JZ   	NEARLABEL
+	JNZ	NEARLABEL
+	JNA	NEARLABEL
+	JA 	NEARLABEL
+	JS 	NEARLABEL
+	JNS 	NEARLABEL
+	JP  	NEARLABEL
+	JPO 	NEARLABEL
+	JL  	NEARLABEL
+	JNL 	NEARLABEL
+	JLE 	NEARLABEL
+	JG  	NEARLABEL
+	JCXZ	NEARLABEL
+	JECXZ	NEARLABEL
+
+	JMP	NEARLABEL
+	JMP	TESTCODE32
+	JMP	DATADWORD[ESI*4]
+	JMP	DWORD PTR [EBX]
+	JMP	FWORD PTR [EBX]
+
+	LAHF
+	LAR	AX,BX
+	LAR	AX,DATAWORD
+	LAR	EAX,EBX
+	LAR	EAX,DATADWORD
+
+	LEA	AX,[BX+4]
+	LEA	EAX,DATADWORD[ESI*4+1]
+	LEAVE
+	LGDT	FWORD PTR DATADWORD
+	LIDT	FWORD PTR DATADWORD
+
+	LDS	ESI,FWORD PTR DATADWORD
+	LES	ESI,FWORD PTR DATADWORD
+	LSS	ESI,FWORD PTR DATADWORD
+	LDS	ESI,FWORD PTR DATADWORD
+	LGS	ESI,FWORD PTR DATADWORD
+	LDS	SI,DWORD PTR DATADWORD
+	LES	SI,DWORD PTR DATADWORD
+	LSS	SI,DWORD PTR DATADWORD
+	LDS	SI,DWORD PTR DATADWORD
+	LGS	SI,DWORD PTR DATADWORD
+	LLDT	AX
+	LLDT	DATAWORD
+	LMSW	AX
+	LMSW	DATAWORD
+	LOCK	ADD AX,DATAWORD
+	LODSB
+	LODSW
+	LODSD
+LOOPLABEL:
+	LOOP	LOOPLABEL
+	LOOPZ	LOOPLABEL
+	LOOPNZ	LOOPLABEL
+	LSL	AX,BX
+	LSL	AX,DATAWORD
+	LSL	EAX,EBX
+	LSL	EAX,DATADWORD
+	LTR	AX
+	LTR	DATAWORD
+
+        MOV     BL,CL
+        MOV     BX,CX
+        MOV     EBX,ECX
+        MOV     DATABYTE,BL
+        MOV     DATAWORD,BX
+        MOV     DATADWORD,EBX
+        MOV     BL,DATABYTE
+        MOV     BX,DATAWORD
+        MOV     EBX,DATADWORD
+        MOV     AX,DS
+        MOV     AX,ES
+        MOV     AX,FS
+        MOV     AX,GS
+        MOV     AX,CS
+        MOV     AX,SS
+        MOV     DATAWORD,DS
+        MOV     DATAWORD,ES
+        MOV     DATAWORD,FS
+        MOV     DATAWORD,GS
+        MOV     DATAWORD,SS
+        MOV     DATAWORD,CS
+        MOV     DS,AX
+        MOV     ES,AX
+        MOV     FS,AX
+        MOV     GS,AX
+        MOV     SS,AX
+        MOV     DS,DATAWORD
+        MOV     ES,DATAWORD
+        MOV     FS,DATAWORD
+        MOV     GS,DATAWORD
+        MOV     SS,DATAWORD
+        MOV     AL,DATABYTE
+        MOV     AX,DATAWORD
+        MOV     EAX,DATADWORD
+        MOV     DATABYTE,AL
+        MOV     DATAWORD,AX
+        MOV     DATADWORD,EAX
+        MOV     BL,012H
+        MOV     BX,01234H
+        MOV     EBX,012345678H
+        MOV     DATABYTE,012H
+        MOV     DATAWORD,01234H
+        MOV     DATADWORD,012345678H
+        MOV     EBX,CR0
+        MOV     EBX,CR2
+        MOV     EBX,CR3
+        MOV     CR0,EBX
+        MOV     CR2,EBX
+        MOV     CR3,EBX
+        MOV     EBX,DR0
+        MOV     EBX,DR1
+        MOV     EBX,DR2
+        MOV     EBX,DR3
+        MOV     EBX,DR6
+        MOV     EBX,DR7
+        MOV     DR0,EBX
+        MOV     DR1,EBX
+        MOV     DR2,EBX
+        MOV     DR3,EBX
+        MOV     DR6,EBX
+        MOV     DR7,EBX
+        MOV     EBX,TR6
+        MOV     EBX,TR7
+        MOV     TR6,EBX
+        MOV     TR7,EBX
+
+        MOVSB
+        MOVSW
+        MOVSD
+
+        MOVSX   BX,DATABYTE
+        MOVSX   BX,CL
+        MOVSX   EBX,DATABYTE
+        MOVSX   EBX,CL
+        MOVSX   EBX,DATAWORD
+        MOVSX   EBX,CX
+        
+        MOVZX   BX,DATABYTE
+        MOVZX   BX,CL
+        MOVZX   EBX,DATABYTE
+        MOVZX   EBX,CL
+        MOVZX   EBX,DATAWORD
+        MOVZX   EBX,CX
+        
+        MUL     BL
+        MUL     BX
+        MUL     EBX
+        MUL     DATABYTE
+        MUL     DATAWORD
+        MUL     DATADWORD
+
+        NEG     BL
+        NEG     BX
+        NEG     EBX
+        NEG     DATABYTE
+        NEG     DATAWORD
+        NEG     DATADWORD
+        NOP
+        NOT     BL
+        NOT     BX
+        NOT     EBX
+        NOT     DATABYTE
+        NOT     DATAWORD
+        NOT     DATADWORD
+
+        OR      AL,12H
+        OR      AX,1234H
+        OR      EAX,12345678H
+        OR      BL,12H
+        OR      DATABYTE,12H
+        OR      BX,1234H
+        OR      DATAWORD,1234H
+        OR      EBX,12345678H
+        OR      DATADWORD,12345678H
+        OR      BX,12H
+        OR      DATAWORD,12H
+        OR      EBX,12H
+        OR      DATADWORD,-12H
+        OR      BL,CL
+        OR      DATABYTE,BL
+        OR      BX,CX
+        OR      DATAWORD,BX
+        OR      EBX,ECX
+        OR      DATADWORD,EBX
+        OR      BL,DATABYTE
+        OR      BX,DATAWORD
+        OR      EBX,DATADWORD
+
+        OUT     20H,AL
+        OUT     20H,AX
+        OUT     20H,EAX
+        OUT     DX,AL
+        OUT     DX,AX
+        OUT     DX,EAX
+
+        OUTSB
+        OUTSW
+        OUTSD
+
+        POP     DATAWORD
+        POP     DATADWORD
+        POP     BX
+        POP     EBX
+        POP     DS
+        POP     ES
+        POP     SS
+        POP     FS
+        POP     GS
+DB 066H
+        POPA
+        POPAD
+        POPF
+        POPFD
+
+        PUSH    DATAWORD
+        PUSH    DATADWORD
+        PUSH    BX
+        PUSH    EBX
+        PUSH    12H
+        PUSH    word ptr 1234H
+        PUSH    dword ptr 012345678H
+        PUSH    CS
+        PUSH    DS
+        PUSH    ES
+        PUSH    SS
+        PUSH    FS
+        PUSH    GS
+
+DB 066H
+        PUSHA
+        PUSHAD
+        PUSHF
+        PUSHFD
+
+        RCL     DATABYTE,1
+        RCL     DATABYTE,CL
+        RCL     DATABYTE,7
+        RCL     DATAWORD,1
+        RCL     DATAWORD,CL
+        RCL     DATAWORD,7
+        RCL     DATADWORD,1
+        RCL     DATADWORD,CL
+        RCL     DATADWORD,7
+        RCL     BL,7
+        RCL     BL,1
+        RCL     BL,CL
+        RCL     BX,7
+        RCL     BX,1
+        RCL     BX,CL
+        RCL     EBX,7
+        RCL     EBX,1
+        RCL     EBX,CL
+
+        RCR     DATABYTE,1
+        RCR     DATABYTE,CL
+        RCR     DATABYTE,7
+        RCR     DATAWORD,1
+        RCR     DATAWORD,CL
+        RCR     DATAWORD,7
+        RCR     DATADWORD,1
+        RCR     DATADWORD,CL
+        RCR     DATADWORD,7
+        RCR     BL,7
+        RCR     BL,1
+        RCR     BL,CL
+        RCR     BX,7
+        RCR     BX,1
+        RCR     BX,CL
+        RCR     EBX,7
+        RCR     EBX,1
+        RCR     EBX,CL
+
+        ROL     DATABYTE,1
+        ROL     DATABYTE,CL
+        ROL     DATABYTE,7
+        ROL     DATAWORD,1
+        ROL     DATAWORD,CL
+        ROL     DATAWORD,7
+        ROL     DATADWORD,1
+        ROL     DATADWORD,CL
+        ROL     DATADWORD,7
+        ROL     BL,7
+        ROL     BL,1
+        ROL     BL,CL
+        ROL     BX,7
+        ROL     BX,1
+        ROL     BX,CL
+        ROL     EBX,7
+        ROL     EBX,1
+        ROL     EBX,CL
+
+        ROR     DATABYTE,1
+        ROR     DATABYTE,CL
+        ROR     DATABYTE,7
+        ROR     DATAWORD,1
+        ROR     DATAWORD,CL
+        ROR     DATAWORD,7
+        ROR     DATADWORD,1
+        ROR     DATADWORD,CL
+        ROR     DATADWORD,7
+        ROR     BL,7
+        ROR     BL,1
+        ROR     BL,CL
+        ROR     BX,7
+        ROR     BX,1
+        ROR     BX,CL
+        ROR     EBX,7
+        ROR     EBX,1
+        ROR     EBX,CL
+
+        REP     INSB
+        REP     INSW
+        REP     INSD
+        REP     MOVSB
+        REP     MOVSW
+        REP     MOVSD
+        REP     OUTSB
+        REP     OUTSW
+        REP     OUTSD
+        REP     LODSB
+        REP     LODSW
+        REP     LODSD
+        REP     STOSB
+        REP     STOSW
+        REP     STOSD
+        REPE    CMPSB
+        REPE    CMPSW
+        REPE    CMPSD
+        REPE    SCASB
+        REPE    SCASW
+        REPE    SCASD
+        REPE    CMPSB
+        REPE    CMPSW
+        REPE    CMPSD
+        REPE    SCASB
+        REPE    SCASW
+        REPE    SCASD
+        REPNE   CMPSB
+        REPNE   CMPSW
+        REPNE   CMPSD
+        REPNE   SCASB
+        REPNE   SCASW
+        REPNE   SCASD
+        RET
+        RET     1234H
+
+        SAL     DATABYTE,1
+        SAL     DATABYTE,CL
+        SAL     DATABYTE,7
+        SAL     DATAWORD,1
+        SAL     DATAWORD,CL
+        SAL     DATAWORD,7
+        SAL     DATADWORD,1
+        SAL     DATADWORD,CL
+        SAL     DATADWORD,7
+        SAL     BL,7
+        SAL     BL,1
+        SAL     BL,CL
+        SAL     BX,7
+        SAL     BX,1
+        SAL     BX,CL
+        SAL     EBX,7
+        SAL     EBX,1
+        SAL     EBX,CL
+
+        SAR     DATABYTE,1
+        SAR     DATABYTE,CL
+        SAR     DATABYTE,7
+        SAR     DATAWORD,1
+        SAR     DATAWORD,CL
+        SAR     DATAWORD,7
+        SAR     DATADWORD,1
+        SAR     DATADWORD,CL
+        SAR     DATADWORD,7
+        SAR     BL,7
+        SAR     BL,1
+        SAR     BL,CL
+        SAR     BX,7
+        SAR     BX,1
+        SAR     BX,CL
+        SAR     EBX,7
+        SAR     EBX,1
+        SAR     EBX,CL
+
+        SHL     DATABYTE,1
+        SHL     DATABYTE,CL
+        SHL     DATABYTE,7
+        SHL     DATAWORD,1
+        SHL     DATAWORD,CL
+        SHL     DATAWORD,7
+        SHL     DATADWORD,1
+        SHL     DATADWORD,CL
+        SHL     DATADWORD,7
+        SHL     BL,7
+        SHL     BL,1
+        SHL     BL,CL
+        SHL     BX,7
+        SHL     BX,1
+        SHL     BX,CL
+        SHL     EBX,7
+        SHL     EBX,1
+        SHL     EBX,CL
+
+        SHR     DATABYTE,1
+        SHR     DATABYTE,CL
+        SHR     DATABYTE,7
+        SHR     DATAWORD,1
+        SHR     DATAWORD,CL
+        SHR     DATAWORD,7
+        SHR     DATADWORD,1
+        SHR     DATADWORD,CL
+        SHR     DATADWORD,7
+        SHR     BL,7
+        SHR     BL,1
+        SHR     BL,CL
+        SHR     BX,7
+        SHR     BX,1
+        SHR     BX,CL
+        SHR     EBX,7
+        SHR     EBX,1
+        SHR     EBX,CL
+
+        SBB     AL,12H
+        SBB     AX,1234H
+        SBB     EAX,12345678H
+        SBB     BL,12H
+        SBB     DATABYTE,12H
+        SBB     BX,1234H
+        SBB     DATAWORD,1234H
+        SBB     EBX,12345678H
+        SBB     DATADWORD,12345678H
+        SBB     BX,12H
+        SBB     DATAWORD,12H
+        SBB     EBX,12H
+        SBB     DATADWORD,-12H
+        SBB     BL,CL
+        SBB     DATABYTE,BL
+        SBB     BX,CX
+        SBB     DATAWORD,BX
+        SBB     EBX,ECX
+        SBB     DATADWORD,EBX
+        SBB     BL,DATABYTE
+        SBB     BX,DATAWORD
+        SBB     EBX,DATADWORD
+
+        SCASB
+        SCASW
+        SCASD
+
+        SETO    BL
+        SETNO   BL
+        SETB    BL
+        SETNB   BL
+        SETE    BL
+        SETNE   BL
+        SETBE   BL
+        SETA    BL
+        SETS    BL
+        SETNS   BL
+        SETP    BL
+        SETPO   BL
+        SETL    BL
+        SETGE   BL
+        SETLE   BL
+        SETNLE  BL
+
+        SETO    DATABYTE
+        SETNO   DATABYTE
+        SETB    DATABYTE
+        SETNB   DATABYTE
+        SETE    DATABYTE
+        SETNE   DATABYTE
+        SETBE   DATABYTE
+        SETA    DATABYTE
+        SETS    DATABYTE
+        SETNS   DATABYTE
+        SETP    BYTE PTR [EBX]
+        SETPO   BYTE PTR [EBX]
+        SETL    BYTE PTR [EBX]
+        SETGE   BYTE PTR [EBX]
+        SETLE   BYTE PTR [EBX]
+        SETNLE  BYTE PTR [EBX]
+
+        SGDT    FWORD PTR DATADWORD
+        SIDT    FWORD PTR DATADWORD
+
+        SHLD    BX,DX,7
+        SHLD    BX,DX,CL
+        SHLD    EBX,EDX,7
+        SHLD    EBX,EDX,CL
+        SHLD    DATAWORD,DX,7
+        SHLD    DATAWORD,DX,CL
+        SHLD    DATADWORD,EDX,7
+        SHLD    DATADWORD,EDX,CL
+
+        SHRD    BX,DX,7
+        SHRD    BX,DX,CL
+        SHRD    EBX,EDX,7
+        SHRD    EBX,EDX,CL
+        SHRD    DATAWORD,DX,7
+        SHRD    DATAWORD,DX,CL
+        SHRD    DATADWORD,EDX,7
+        SHRD    DATADWORD,EDX,CL
+
+        SLDT    BX
+        SLDT    DATAWORD
+
+        SMSW    BX
+        SMSW    DATAWORD
+        STC
+        STD
+        STI
+        STOSB
+        STOSW
+        STOSD
+        STR     BX
+        STR     DATAWORD
+
+        SUB     AL,12H
+        SUB     AX,1234H
+        SUB     EAX,12345678H
+        SUB     BL,12H
+        SUB     DATABYTE,12H
+        SUB     BX,1234H
+        SUB     DATAWORD,1234H
+        SUB     EBX,12345678H
+        SUB     DATADWORD,12345678H
+        SUB     BX,12H
+        SUB     DATAWORD,12H
+        SUB     EBX,12H
+        SUB     DATADWORD,-12H
+        SUB     BL,CL
+        SUB     DATABYTE,BL
+        SUB     BX,CX
+        SUB     DATAWORD,BX
+        SUB     EBX,ECX
+        SUB     DATADWORD,EBX
+        SUB     BL,DATABYTE
+        SUB     BX,DATAWORD
+        SUB     EBX,DATADWORD
+
+        TEST    AL,12H
+        TEST    AX,1234H
+        TEST    EAX,12345678H
+        TEST    BL,12H
+        TEST    BX,1234H
+        TEST    EBX,12345678H
+        TEST    BL,CL 
+        TEST    BX,CX   
+        TEST    EBX,ECX      
+        TEST    DATABYTE,12H
+        TEST    DATAWORD,1234H
+        TEST    DATADWORD,12345678H
+        TEST    DATABYTE,CL 
+        TEST    DATAWORD,CX   
+        TEST    DATADWORD,ECX      
+
+        VERR    BX
+        VERR    DATAWORD
+        VERW    BX
+        VERW    DATAWORD
+        WAIT
+
+        XCHG    AX,BX
+        XCHG    BX,AX
+        XCHG    EAX,EBX
+        XCHG    EBX,EAX
+        XCHG    BL,CL
+        XCHG    BX,CX
+        XCHG    EBX,ECX
+        XCHG    BL,DATABYTE
+        XCHG    BX,DATAWORD
+        XCHG    EBX,DATADWORD
+        XCHG    DATABYTE,BL
+        XCHG    DATAWORD,BX
+        XCHG    DATADWORD,EBX
+
+        XLATB
+        XOR      AL,12H
+        XOR      AX,1234H
+        XOR      EAX,12345678H
+        XOR      BL,12H
+        XOR      DATABYTE,12H
+        XOR      BX,1234H
+        XOR      DATAWORD,1234H
+        XOR      EBX,12345678H
+        XOR      DATADWORD,12345678H
+        XOR      BX,12H
+        XOR      DATAWORD,12H
+        XOR      EBX,12H
+        XOR      DATADWORD,-12H
+        XOR      BL,CL
+        XOR      DATABYTE,BL
+        XOR      BX,CX
+        XOR      DATAWORD,BX
+        XOR      EBX,ECX
+        XOR      DATADWORD,EBX
+        XOR      BL,DATABYTE
+        XOR      BX,DATAWORD
+        XOR      EBX,DATADWORD
+
+        MOV     EAX,[EAX][EBX]
+        MOV     EBX,[ECX][EDX]
+        MOV     ECX,[ESI][EDI]
+        MOV     EDX,[EBP][ESP]
+
+        MOV     ESI,[EAX][EBX*2]
+        MOV     EDI,[ECX][EDX*2]
+        MOV     EBP,[ESI][EDI*2]
+        MOV     ESP,[EBP][EAX*2]
+
+        MOV     EAX,[EAX][EBX*4]
+        MOV     EBX,[ECX][EDX*4]
+        MOV     ECX,[ESI][EDI*4]
+        MOV     EDX,[EBP][EAX*4]
+
+        MOV     ESI,[EAX][EBX*8]
+        MOV     EDI,[ECX][EDX*8]
+        MOV     EBP,[ESI][EDI*8]
+        MOV     ESP,[EBP][EAX*8]
+
+        MOV     EAX,[EAX][EBX-1]
+        MOV     EBX,[ECX][EDX-2]
+        MOV     ECX,[ESI][EDI-3]
+        MOV     EDX,[EBP][EAX-4]
+
+        MOV     ESI,[EAX][EBX*2+5]
+        MOV     EDI,[ECX][EDX*2+6]
+        MOV     EBP,[ESI][EDI*2+7]
+        MOV     ESP,[EBP][EAX*2+8]
+
+        MOV     EAX,[EAX][EBX*4+9]
+        MOV     EBX,[ECX][EDX*4+10]
+        MOV     ECX,[ESI][EDI*4+11]
+        MOV     EDX,[EBP][EAX*4+12]
+
+        MOV     ESI,[EAX][EBX*8+13]
+        MOV     EDI,[ECX][EDX*8+14]
+        MOV     EBP,[ESI][EDI*8+15]
+        MOV     ESP,[EBP][EAX*8+16]
+
+	MOV     EAX,[EAX][EBX+0C0000001h]
+	MOV     EBX,[ECX][EDX+0C0000002h]
+	MOV     ECX,[ESI][EDI+0C0000003h]
+	MOV     EDX,[EBP][EAX+0C0000004h]
+
+	MOV     ESI,[EAX][EBX*2+0C0000005h]
+	MOV     EDI,[ECX][EDX*2+0C0000006h]
+	MOV     EBP,[ESI][EDI*2+0C0000007h]
+	MOV     ESP,[EBP][EAX*2+0C0000008h]
+
+	MOV     EAX,[EAX][EBX*4+0C0000009h]
+	MOV     EBX,[ECX][EDX*4+0C0000010h]
+	MOV     ECX,[ESI][EDI*4+0C0000011h]
+	MOV     EDX,[EBP][EAX*4+0C0000012h]
+
+	MOV     ESI,[EAX][EBX*8+0C0000013h]
+	MOV     EDI,[ECX][EDX*8+0C0000014h]
+	MOV     EBP,[ESI][EDI*8+0C0000015h]
+	MOV     ESP,[EBP][EAX*8+0C0000016h]
+
+        MOV     [EAX][EBX]     ,EAX
+        MOV     [ECX][EDX]     ,EBX
+        MOV     [ESI][EDI]     ,ECX
+        MOV     [EBP][ESP]     ,EDX
+
+        MOV     [EAX][EBX*2]   ,ESI
+        MOV     [ECX][EDX*2]   ,EDI
+        MOV     [ESI][EDI*2]   ,EBP
+        MOV     [EBP][EAX*2]   ,ESP
+
+        MOV     [EAX][EBX*4]   ,EAX
+        MOV     [ECX][EDX*4]   ,EBX
+        MOV     [ESI][EDI*4]   ,ECX
+        MOV     [EBP][EAX*4]   ,EDX
+
+        MOV     [EAX][EBX*8]   ,ESI
+        MOV     [ECX][EDX*8]   ,EDI
+        MOV     [ESI][EDI*8]   ,EBP
+        MOV     [EBP][EAX*8]   ,ESP
+
+        MOV     [EAX][EBX+1]   ,EAX
+        MOV     [ECX][EDX+2]   ,EBX
+        MOV     [ESI][EDI+3]   ,ECX
+        MOV     [EBP][EAX+4]   ,EDX
+
+        MOV     [EAX][EBX*2+5] ,ESI
+        MOV     [ECX][EDX*2+6] ,EDI
+        MOV     [ESI][EDI*2+7] ,EBP
+        MOV     [EBP][EAX*2+8] ,ESP
+
+        MOV     [EAX][EBX*4+9] ,EAX
+        MOV     [ECX][EDX*4+10],EBX
+        MOV     [ESI][EDI*4+11],ECX
+        MOV     [EBP][EAX*4+12],EDX
+
+        MOV     [EAX][EBX*8-13],ESI
+        MOV     [ECX][EDX*8-14],EDI
+        MOV     [ESI][EDI*8-15],EBP
+        MOV     [EBP][EAX*8-16],ESP
+
+	MOV     [EAX][EBX+0C0000001h],EAX
+	MOV     [ECX][EDX+0C0000002h],EBX
+	MOV     [ESI][EDI+0C0000003h],ECX
+	MOV     [EBP][EAX+0C0000004h],EDX
+	MOV     [EAX][EBX*2+0C0000005h],ESI
+	MOV     [ECX][EDX*2+0C0000006h],EDI
+	MOV     [ESI][EDI*2+0C0000007h],EBP
+	MOV     [EBP][EAX*2+0C0000008h],ESP
+	MOV     [EAX][EBX*4+0C0000009h],EAX
+	MOV     [ECX][EDX*4+0C0000010h],EBX
+	MOV     [ESI][EDI*4+0C0000011h],ECX
+	MOV     [EBP][EAX*4+0C0000012h],EDX
+	MOV     [EAX][EBX*8+0C0000013h],ESI
+	MOV     [ECX][EDX*8+0C0000014h],EDI
+	MOV     [ESI][EDI*8+0C0000015h],EBP
+	MOV     [EBP][EAX*8+0C0000016h],ESP
+
+	MOV	BYTE PTR [EAX-09],01
+	MOV	WORD PTR [ECX-09],0002
+	MOV	DWORD PTR [EDX-09],00000004
+	MOV	BYTE PTR [EBX-09],01
+	MOV	WORD PTR [ESI-09],0002
+	MOV	DWORD PTR [EDI-09],00000004
+	MOV	BYTE PTR [EBP-09],01
+
+	MOV	BYTE PTR [EAX+09],01
+	MOV	WORD PTR [ECX+09],0002
+	MOV	DWORD PTR [EDX+09],00000004
+	MOV	BYTE PTR [EBX+09],01
+	MOV	WORD PTR [ESI+09],0002
+	MOV	DWORD PTR [EDI+09],00000004
+	MOV	BYTE PTR [EBP+09],01
+
+	MOV	BYTE PTR [BX+SI],1
+	MOV	WORD PTR [BX+SI],2
+	MOV	DWORD PTR [BX+SI],4
+
+	MOV	BYTE PTR [BX+DI],1
+	MOV	WORD PTR [BX+DI],2
+	MOV	DWORD PTR [BX+DI],4
+
+	MOV	BYTE PTR [BP+SI],1
+	MOV	WORD PTR [BP+SI],2
+	MOV	DWORD PTR [BP+SI],4
+
+	MOV	BYTE PTR [BP+DI],1
+	MOV	WORD PTR [BP+DI],2
+	MOV	DWORD PTR [BP+DI],4
+
+	MOV	BYTE PTR [SI],1
+	MOV	WORD PTR [SI],2
+	MOV	DWORD PTR [SI],4
+
+	MOV	BYTE PTR [DI],1
+	MOV	WORD PTR [DI],2
+	MOV	DWORD PTR [DI],4
+
+	MOV	BYTE PTR [BX],1
+	MOV	WORD PTR [BX],2
+	MOV	DWORD PTR [BX],4
+
+	MOV	BYTE PTR [BP],1
+	MOV	WORD PTR [BP],2
+	MOV	DWORD PTR [BP],4
+
+	MOV	BYTE PTR [BX+SI+2],1
+	MOV	WORD PTR [BX+SI-2],2
+	MOV	DWORD PTR [BX+SI+2],4
+
+	MOV	BYTE PTR [BX+DI+2],1
+	MOV	WORD PTR [BX+DI-2],2
+	MOV	DWORD PTR [BX+DI+2],4
+
+	MOV	BYTE PTR [BP+SI+2],1
+	MOV	WORD PTR [BP+SI-2],2
+	MOV	DWORD PTR [BP+SI+2],4
+
+	MOV	BYTE PTR [BP+DI+2],1
+	MOV	WORD PTR [BP+DI-2],2
+	MOV	DWORD PTR [BP+DI+2],4
+
+	MOV	BYTE PTR [SI+2],1
+	MOV	WORD PTR [SI-2],2
+	MOV	DWORD PTR [SI+2],4
+
+	MOV	BYTE PTR [DI+2],1
+	MOV	WORD PTR [DI-2],2
+	MOV	DWORD PTR [DI+2],4
+
+	MOV	BYTE PTR [BX+2],1
+	MOV	WORD PTR [BX-2],2
+	MOV	DWORD PTR [BX+2],4
+
+	MOV	BYTE PTR [BP+2],1
+	MOV	WORD PTR [BP-2],2
+	MOV	DWORD PTR [BP+2],4
+
+	MOV	BYTE PTR [BX+SI+200H],1
+	MOV	WORD PTR [BX+SI-200H],2
+	MOV	DWORD PTR [BX+SI+200H],4
+
+	MOV	BYTE PTR [BX+DI+200H],1
+	MOV	WORD PTR [BX+DI-200H],2
+	MOV	DWORD PTR [BX+DI+200H],4
+
+	MOV	BYTE PTR [BP+SI+200H],1
+	MOV	WORD PTR [BP+SI-200H],2
+	MOV	DWORD PTR [BP+SI+200H],4
+
+	MOV	BYTE PTR [BP+DI+200H],1
+	MOV	WORD PTR [BP+DI-200H],2
+	MOV	DWORD PTR [BP+DI+200H],4
+
+	MOV	BYTE PTR [SI+200H],1
+	MOV	WORD PTR [SI-200H],2
+	MOV	DWORD PTR [SI+200H],4
+
+	MOV	BYTE PTR [DI+200H],1
+	MOV	WORD PTR [DI-200H],2
+	MOV	DWORD PTR [DI+200H],4
+
+	MOV	BYTE PTR [BX+200H],1
+	MOV	WORD PTR [BX-200H],2
+	MOV	DWORD PTR [BX+200H],4
+
+	MOV	BYTE PTR [BP+200H],1
+	MOV	WORD PTR [BP-200H],2
+	MOV	DWORD PTR [BP+200H],4
+
+	BOUND 	BX,DATAWORD
+	BOUND 	EBX,DATADWORD
+	BOUND 	BX,[BX]
+	BOUND 	EBX,[BX]
+	BOUND 	BX,[EBX]
+	BOUND 	EBX,[EBX]
+
+; 486 specific instructions
+	INVD
+	WBINVD
+	INVLPG DATADWORD
+
+	XADD	AL,BL
+	XADD	CX,DX
+	XADD	ESI,EDI
+	XADD	DATABYTE,BH
+	XADD	DATAWORD,BP
+	XADD	DATADWORD,ESP
+
+	CMPXCHG	AL,BL
+	CMPXCHG	CX,DX
+	CMPXCHG	ESI,EDI
+	CMPXCHG	DATABYTE,BH
+	CMPXCHG	DATAWORD,BP
+	CMPXCHG	DATADWORD,ESP
+
+        MOV     EBX,TR3
+        MOV     EBX,TR4
+        MOV     EBX,TR5
+        MOV     TR3,EBX
+        MOV     TR4,EBX
+        MOV     TR5,EBX
+
+	BSWAP 	EAX
+	BSWAP 	EBX
+	BSWAP 	ECX
+	BSWAP 	EDX
+	BSWAP 	ESI
+	BSWAP 	EDI
+	BSWAP 	EBP
+	BSWAP 	ESP
+
+; PENTIUM specific instructions
+	CMPXCHG8B	QWORD PTR DATADWORD
+	CMPXCHG8B	QWORD PTR [ESI*8+EDI+12345678H]
+	CMPXCHG8B	QWORD PTR [SI+1234H]
+	CPUID
+	RDMSR
+	RDTSC
+	RSM
+	WRMSR
+	MOV	EDX,CR4
+	MOV	CR4,ESI
+
+; PENTIUM pro specific instructions
+	db 0fh,0bh		; UD2
+	db 0fh,33h              ; RDPMC
+	db 0fh,40h,6		; CMOVO  EAX,[ESI]
+	db 0fh,41h,6		; CMOVNO EAX,[ESI]
+	db 0fh,42h,6		; CMOVB  EAX,[ESI]
+	db 0fh,43h,6		; CMOVAE EAX,[ESI]
+	db 0fh,44h,6		; CMOVZ  EAX,[ESI]
+	db 0fh,45h,6		; CMOVNZ EAX,[ESI]
+	db 0fh,46h,6		; CMOVBE EAX,[ESI]
+	db 0fh,47h,6		; CMOVA  EAX,[ESI]
+	db 0fh,48h,6		; CMOVS  EAX,[ESI]
+	db 0fh,49h,6		; CMOVNS EAX,[ESI]
+	db 0fh,4Ah,6		; CMOVP  EAX,[ESI]
+	db 0fh,4Bh,6		; CMOVNP EAX,[ESI]
+	db 0fh,4Ch,6		; CMOVL  EAX,[ESI]
+	db 0fh,4Dh,6		; CMOVGE EAX,[ESI]
+	db 0fh,4Eh,6		; CMOVLE EAX,[ESI]
+	db 0fh,4Fh,6		; CMOVG  EAX,[ESI]
+
+	FCHS	
+	FABS	
+	FTST	
+	FXAM	
+	FLD1	
+	FLDL2T
+	FLDL2E
+	FLDPI	
+	FLDLG2
+	FLDLN2
+	FLDZ	
+	F2XM1	
+	FYL2X	
+	FPTAN	
+	FPATAN
+	FXTRACT
+	FPREM1
+	FDECSTP
+	FINCSTP
+	FPREM	
+	FYL2XP1
+	FSQRT	
+	FSINCOS
+	FRNDINT
+	FSCALE
+	FSIN	
+	FCOS	
+	FENI	
+	FDISI	
+	FCLEX	
+	FINIT
+	FCOMPP
+	FUCOMPP
+	FNOP
+	
+	FSTSW	AX
+	FSTSW	DATAWORD
+	FSTSW	WORD PTR [BX-04]
+	FSTSW	WORD PTR [ESP-04]
+
+	FADD	ST,ST(4)
+	FADD	ST(4),ST
+	FADD	REAL4 PTR [BX]
+	FADD	REAL8 PTR [BX]
+	FADD	REAL4 PTR [EBX]
+	FADD	REAL8 PTR [EBX]
+
+	FADDP	ST(1),ST
+	FADDP	ST(2),ST
+	FADDP	ST(3),ST
+	FADDP	ST(4),ST
+	FADDP	ST(5),ST
+	FADDP	ST(6),ST
+	FADDP	ST(7),ST
+
+	FBLD	TBYTE PTR DATADWORD
+	FBLD	TBYTE PTR [BX]
+	FBLD	TBYTE PTR [ESI*4+EDI+07]
+
+	FBSTP	TBYTE PTR DATADWORD
+	FBSTP	TBYTE PTR [BX]
+	FBSTP	TBYTE PTR [EAX*8+ECX+12345678H]
+	
+	FCOM	ST(1)
+	FCOM	REAL4 PTR DATADWORD	
+	FCOM	REAL8 PTR [BX+SI]
+	FCOM	REAL4 PTR [EDI]	
+	FCOM	REAL8 PTR [EBP*8]
+	
+	FCOMP	ST(1)
+	FCOMP	REAL4 PTR DATADWORD	
+	FCOMP	REAL8 PTR [BX+SI]
+	FCOMP	REAL4 PTR [EDI]	
+	FCOMP	REAL8 PTR [EBP*8]
+
+	FDIV	ST(1),ST
+	FDIV	ST,ST(1)
+	FDIV	REAL4 PTR DATADWORD	
+	FDIV	REAL8 PTR [BX+SI]
+	FDIV	REAL4 PTR [EDI]	
+	FDIV	REAL8 PTR [EBP*8]
+
+	FDIVR	ST(1),ST
+	FDIVR	ST,ST(1)
+	FDIVR	REAL4 PTR DATADWORD	
+	FDIVR	REAL8 PTR [BX+SI]
+	FDIVR	REAL4 PTR [EDI]	
+	FDIVR	REAL8 PTR [EBP*8]
+
+	FDIVP	ST(6),ST
+	FDIVRP	ST(6),ST
+
+	FFREE	ST(1)
+
+	FIADD	DATAWORD
+	FIADD	DATADWORD
+	FICOM	DATAWORD
+	FICOM	DATADWORD
+	FICOMP	DATAWORD
+	FICOMP	DATADWORD
+	FIDIV	DATAWORD
+	FIDIV	DATADWORD
+	FIDIVR	DATAWORD
+	FIDIVR	DATADWORD
+	FILD	DATAWORD
+	FILD	DATADWORD
+	FIMUL	DATAWORD
+	FIMUL	DATADWORD
+
+	FIST	DATAWORD
+	FIST	DATADWORD
+	FISTP	DATAWORD
+	FISTP	DATADWORD
+	FISUB	DATAWORD
+	FISUB	DATADWORD
+	FISUBR	DATAWORD
+	FISUBR	DATADWORD
+
+	FLD	REAL4 PTR SS:[BP+09]
+	FLD	REAL8 PTR ES:[BX+01]
+	FLD	REAL10 PTR FS:[BX+SI]
+	FLD	REAL4 PTR SS:[EBP*8+EDX+09]
+	FLD	REAL8 PTR ES:[ESI*4+88H]
+	FLD	REAL10 PTR FS:[ESP+12345678H]
+	FLD	ST(3)
+
+	FLDCW	DATAWORD
+	FLDCW	[DI+02]
+	FLDCW	[ESP-04]
+	FSTCW	GS:DATAWORD
+	FSTCW	FS:[DI+02]
+	FSTCW	ES:[ESP-04]
+
+	FLDENV	[BP-04]
+	FLDENV	[EBP-04]
+	FLDCW	[ESP-04]
+	FSTENV	[BP-04]
+	FSTENV	[EBP-04]
+
+	FMUL	ST,ST(2)
+	FMUL	ST(4),ST
+	FMUL	REAL4 PTR DATADWORD	
+	FMUL	REAL8 PTR [BX+SI]
+	FMUL	REAL4 PTR [EDI]	
+	FMUL	REAL8 PTR [EBP*8]
+	FMULP	ST(5),ST
+
+	FRSTOR	[SI+1234H]
+	FRSTOR	[ESI*2]
+	FSAVE	[DI+1234H]
+	FRSTOR	[EDI*2]
+
+	FST	ST(1)
+	FST	REAL4 PTR [SI]
+	FST	REAL8 PTR [ESP]
+	FST	REAL4 PTR DATADWORD
+	FST	REAL8 PTR DATADWORD
+
+	FSTP	REAL4 PTR SS:[BP+09]
+	FSTP	REAL8 PTR ES:[BX+01]
+	FSTP	REAL10 PTR FS:[BX+SI]
+	FSTP	REAL4 PTR SS:[EBP*8+EDX+09]
+	FSTP	REAL8 PTR ES:[ESI*4+88H]
+	FSTP	REAL10 PTR FS:[ESP+12345678H]
+	FSTP	ST(2)
+
+	FSUB	ST,ST(1)
+	FSUB	ST(1),ST
+	FSUB	REAL4 PTR [BP]
+	FSUB	REAL8 PTR [DI+1234H]
+	FSUB	REAL4 PTR [EDX*2+01]
+	FSUB	REAL8 PTR [EAX+EDI]
+	FSUBP	ST(6),ST
+	FSUBR	ST,ST(5)
+	FSUBR	ST(5),ST
+	FSUBR	REAL4 PTR [DI]
+	FSUBR	REAL8 PTR [SI+1234H]
+	FSUBR	REAL4 PTR [ECX*4+02]
+	FSUBR	REAL8 PTR [ECX+ESP]
+	FSUBRP	ST(3),ST
+
+ 	FXCH	ST(1)
+ 	FXCH	ST(2)
+ 	FXCH	ST(3)
+ 	FXCH	ST(4)
+ 	FXCH	ST(5)
+ 	FXCH	ST(6)
+ 	FXCH	ST(7)
+
+	EMMS
+
+	MOVDT	MM0,EAX
+	MOVDT	MM1,EBX
+	MOVDT	MM2,ECX
+	MOVDT	MM3,EDX
+	MOVDT	MM4,ESI
+	MOVDT	MM5,EDI
+	MOVDT	MM6,EBP
+	MOVDT	MM7,ESP
+	MOVDT	MM0,[eax]
+	MOVDT	MM1,[ebx*4]
+	MOVDT	MM2,[ecx+edx]
+	MOVDT	MM3,[esi+edi+1]
+	MOVDT	MM4,[eax*4+ebx+1]
+	MOVDT	MM5,[ebp+8]
+	MOVDT	MM6,[edx+100h]
+	MOVDT	MM7,DATADWORD
+
+	MOVQ	MM0,MM7
+	MOVQ	MM1,MM6
+	MOVQ	MM2,MM5
+	MOVQ	MM3,MM4
+	MOVQ	MM4,MM3
+	MOVQ	MM5,MM2
+	MOVQ	MM6,MM1
+	MOVQ	MM7,MM0
+	MOVQ	MM0,[eax]
+	MOVQ	MM1,[ebx*4]
+	MOVQ	MM2,[ecx+edx]
+	MOVQ	MM3,[esi+edi+1]
+	MOVQ	MM4,[eax*4+ebx+1]
+	MOVQ	MM5,[ebp+8]
+	MOVQ	MM6,[edx+100h]
+	MOVQ	MM7,DATADWORD
+
+	MOVDF	EAX,MM0
+	MOVDF	EBX,MM1
+	MOVDF	ECX,MM2
+	MOVDF	EDX,MM3
+	MOVDF	ESI,MM4
+	MOVDF	EDI,MM5
+	MOVDF	EBP,MM6
+	MOVDF	ESP,MM7
+	MOVDF	[eax],MM0
+	MOVDF	[ebx*4],MM1
+	MOVDF	[ecx+edx],MM2
+	MOVDF	[esi+edi+1],MM3
+	MOVDF	[eax*4+ebx+1],MM4
+	MOVDF	[ebp+8],MM5
+	MOVDF	[edx+100h],MM6
+	MOVDF	DATADWORD,MM7
+
+	MOVQ	MM7,MM0
+	MOVQ	MM6,MM1
+	MOVQ	MM5,MM2
+	MOVQ	MM4,MM3
+	MOVQ	MM3,MM4
+	MOVQ	MM2,MM5
+	MOVQ	MM1,MM6
+	MOVQ	MM0,MM7
+	MOVQ	[eax],MM0
+	MOVQ	[ebx*4],MM1
+	MOVQ	[ecx+edx],MM2
+	MOVQ	[esi+edi+1],MM3
+	MOVQ	[eax*4+ebx+1],MM4
+	MOVQ	[ebp+8],MM5
+	MOVQ	[edx+100h],MM6
+	MOVQ	DATADWORD,MM7
+
+	PSLLW	MM0,0
+	PSLLW	MM1,1
+	PSLLW	MM2,2
+	PSLLW	MM3,3
+	PSLLW	MM4,4
+	PSLLW	MM5,5
+	PSLLW	MM6,6
+	PSLLW	MM7,7
+
+	PSLLD	MM0,0
+	PSLLD	MM1,1
+	PSLLD	MM2,2
+	PSLLD	MM3,3
+	PSLLD	MM4,4
+	PSLLD	MM5,5
+	PSLLD	MM6,6
+	PSLLD	MM7,7
+
+	PSLLQ	MM0,0
+	PSLLQ	MM1,1
+	PSLLQ	MM2,2
+	PSLLQ	MM3,3
+	PSLLQ	MM4,4
+	PSLLQ	MM5,5
+	PSLLQ	MM6,6
+	PSLLQ	MM7,7
+
+	PSRLW	MM0,0
+	PSRLW	MM1,1
+	PSRLW	MM2,2
+	PSRLW	MM3,3
+	PSRLW	MM4,4
+	PSRLW	MM5,5
+	PSRLW	MM6,6
+	PSRLW	MM7,7
+
+	PSRLD	MM0,0
+	PSRLD	MM1,1
+	PSRLD	MM2,2
+	PSRLD	MM3,3
+	PSRLD	MM4,4
+	PSRLD	MM5,5
+	PSRLD	MM6,6
+	PSRLD	MM7,7
+
+	PSRLQ	MM0,0
+	PSRLQ	MM1,1
+	PSRLQ	MM2,2
+	PSRLQ	MM3,3
+	PSRLQ	MM4,4
+	PSRLQ	MM5,5
+	PSRLQ	MM6,6
+	PSRLQ	MM7,7
+
+	PSRAW	MM0,0
+	PSRAW	MM1,1
+	PSRAW	MM2,2
+	PSRAW	MM3,3
+	PSRAW	MM4,4
+	PSRAW	MM5,5
+	PSRAW	MM6,6
+	PSRAW	MM7,7
+
+	PSRAD	MM0,0
+	PSRAD	MM1,1
+	PSRAD	MM2,2
+	PSRAD	MM3,3
+	PSRAD	MM4,4
+	PSRAD	MM5,5
+	PSRAD	MM6,6
+	PSRAD	MM7,7
+
+	PUNPCKLBW MM0,MM7
+	PUNPCKLBW MM1,MM6
+	PUNPCKLBW MM2,MM5
+	PUNPCKLBW MM3,MM4
+	PUNPCKLBW MM4,MM3
+	PUNPCKLBW MM5,MM2
+	PUNPCKLBW MM6,MM1
+	PUNPCKLBW MM7,MM0
+	PUNPCKLBW MM0,[eax]
+	PUNPCKLBW MM1,[ebx*4]
+	PUNPCKLBW MM2,[ecx+edx]
+	PUNPCKLBW MM3,[esi+edi+1]
+	PUNPCKLBW MM4,[eax*4+ebx+1]
+	PUNPCKLBW MM5,[ebp+8]
+	PUNPCKLBW MM6,[edx+100h]
+	PUNPCKLBW MM7,DATADWORD
+
+	PUNPCKLWD MM0,MM7
+	PUNPCKLWD MM1,MM6
+	PUNPCKLWD MM2,MM5
+	PUNPCKLWD MM3,MM4
+	PUNPCKLWD MM4,MM3
+	PUNPCKLWD MM5,MM2
+	PUNPCKLWD MM6,MM1
+	PUNPCKLWD MM7,MM0
+	PUNPCKLWD MM0,[eax]
+	PUNPCKLWD MM1,[ebx*4]
+	PUNPCKLWD MM2,[ecx+edx]
+	PUNPCKLWD MM3,[esi+edi+1]
+	PUNPCKLWD MM4,[eax*4+ebx+1]
+	PUNPCKLWD MM5,[ebp+8]
+	PUNPCKLWD MM6,[edx+100h]
+	PUNPCKLWD MM7,DATADWORD
+
+	PUNPCKLDQ MM0,MM7
+	PUNPCKLDQ MM1,MM6
+	PUNPCKLDQ MM2,MM5
+	PUNPCKLDQ MM3,MM4
+	PUNPCKLDQ MM4,MM3
+	PUNPCKLDQ MM5,MM2
+	PUNPCKLDQ MM6,MM1
+	PUNPCKLDQ MM7,MM0
+	PUNPCKLDQ MM0,[eax]
+	PUNPCKLDQ MM1,[ebx*4]
+	PUNPCKLDQ MM2,[ecx+edx]
+	PUNPCKLDQ MM3,[esi+edi+1]
+	PUNPCKLDQ MM4,[eax*4+ebx+1]
+	PUNPCKLDQ MM5,[ebp+8]
+	PUNPCKLDQ MM6,[edx+100h]
+	PUNPCKLDQ MM7,DATADWORD
+
+	PACKSSWB MM0,MM7
+	PACKSSWB MM1,MM6
+	PACKSSWB MM2,MM5
+	PACKSSWB MM3,MM4
+	PACKSSWB MM4,MM3
+	PACKSSWB MM5,MM2
+	PACKSSWB MM6,MM1
+	PACKSSWB MM7,MM0
+	PACKSSWB MM0,[eax]
+	PACKSSWB MM1,[ebx*4]
+	PACKSSWB MM2,[ecx+edx]
+	PACKSSWB MM3,[esi+edi+1]
+	PACKSSWB MM4,[eax*4+ebx+1]
+	PACKSSWB MM5,[ebp+8]
+	PACKSSWB MM6,[edx+100h]
+	PACKSSWB MM7,DATADWORD
+
+	PCMPGTB MM0,MM7
+	PCMPGTB MM1,MM6
+	PCMPGTB MM2,MM5
+	PCMPGTB MM3,MM4
+	PCMPGTB MM4,MM3
+	PCMPGTB MM5,MM2
+	PCMPGTB MM6,MM1
+	PCMPGTB MM7,MM0
+	PCMPGTB MM0,[eax]
+	PCMPGTB MM1,[ebx*4]
+	PCMPGTB MM2,[ecx+edx]
+	PCMPGTB MM3,[esi+edi+1]
+	PCMPGTB MM4,[eax*4+ebx+1]
+	PCMPGTB MM5,[ebp+8]
+	PCMPGTB MM6,[edx+100h]
+	PCMPGTB MM7,DATADWORD
+
+	PCMPGTW MM0,MM7
+	PCMPGTW MM1,MM6
+	PCMPGTW MM2,MM5
+	PCMPGTW MM3,MM4
+	PCMPGTW MM4,MM3
+	PCMPGTW MM5,MM2
+	PCMPGTW MM6,MM1
+	PCMPGTW MM7,MM0
+	PCMPGTW MM0,[eax]
+	PCMPGTW MM1,[ebx*4]
+	PCMPGTW MM2,[ecx+edx]
+	PCMPGTW MM3,[esi+edi+1]
+	PCMPGTW MM4,[eax*4+ebx+1]
+	PCMPGTW MM5,[ebp+8]
+	PCMPGTW MM6,[edx+100h]
+	PCMPGTW MM7,DATADWORD
+
+	PCMPGTD MM0,MM7
+	PCMPGTD MM1,MM6
+	PCMPGTD MM2,MM5
+	PCMPGTD MM3,MM4
+	PCMPGTD MM4,MM3
+	PCMPGTD MM5,MM2
+	PCMPGTD MM6,MM1
+	PCMPGTD MM7,MM0
+	PCMPGTD MM0,[eax]
+	PCMPGTD MM1,[ebx*4]
+	PCMPGTD MM2,[ecx+edx]
+	PCMPGTD MM3,[esi+edi+1]
+	PCMPGTD MM4,[eax*4+ebx+1]
+	PCMPGTD MM5,[ebp+8]
+	PCMPGTD MM6,[edx+100h]
+	PCMPGTD MM7,DATADWORD
+
+	PACKUSWB MM0,MM7
+	PACKUSWB MM1,MM6
+	PACKUSWB MM2,MM5
+	PACKUSWB MM3,MM4
+	PACKUSWB MM4,MM3
+	PACKUSWB MM5,MM2
+	PACKUSWB MM6,MM1
+	PACKUSWB MM7,MM0
+	PACKUSWB MM0,[eax]
+	PACKUSWB MM1,[ebx*4]
+	PACKUSWB MM2,[ecx+edx]
+	PACKUSWB MM3,[esi+edi+1]
+	PACKUSWB MM4,[eax*4+ebx+1]
+	PACKUSWB MM5,[ebp+8]
+	PACKUSWB MM6,[edx+100h]
+	PACKUSWB MM7,DATADWORD
+
+	PUNPCKHBW MM0,MM7
+	PUNPCKHBW MM1,MM6
+	PUNPCKHBW MM2,MM5
+	PUNPCKHBW MM3,MM4
+	PUNPCKHBW MM4,MM3
+	PUNPCKHBW MM5,MM2
+	PUNPCKHBW MM6,MM1
+	PUNPCKHBW MM7,MM0
+	PUNPCKHBW MM0,[eax]
+	PUNPCKHBW MM1,[ebx*4]
+	PUNPCKHBW MM2,[ecx+edx]
+	PUNPCKHBW MM3,[esi+edi+1]
+	PUNPCKHBW MM4,[eax*4+ebx+1]
+	PUNPCKHBW MM5,[ebp+8]
+	PUNPCKHBW MM6,[edx+100h]
+	PUNPCKHBW MM7,DATADWORD
+
+	PUNPCKHWD MM0,MM7
+	PUNPCKHWD MM1,MM6
+	PUNPCKHWD MM2,MM5
+	PUNPCKHWD MM3,MM4
+	PUNPCKHWD MM4,MM3
+	PUNPCKHWD MM5,MM2
+	PUNPCKHWD MM6,MM1
+	PUNPCKHWD MM7,MM0
+	PUNPCKHWD MM0,[eax]
+	PUNPCKHWD MM1,[ebx*4]
+	PUNPCKHWD MM2,[ecx+edx]
+	PUNPCKHWD MM3,[esi+edi+1]
+	PUNPCKHWD MM4,[eax*4+ebx+1]
+	PUNPCKHWD MM5,[ebp+8]
+	PUNPCKHWD MM6,[edx+100h]
+	PUNPCKHWD MM7,DATADWORD
+
+	PUNPCKHDQ MM0,MM7
+	PUNPCKHDQ MM1,MM6
+	PUNPCKHDQ MM2,MM5
+	PUNPCKHDQ MM3,MM4
+	PUNPCKHDQ MM4,MM3
+	PUNPCKHDQ MM5,MM2
+	PUNPCKHDQ MM6,MM1
+	PUNPCKHDQ MM7,MM0
+	PUNPCKHDQ MM0,[eax]
+	PUNPCKHDQ MM1,[ebx*4]
+	PUNPCKHDQ MM2,[ecx+edx]
+	PUNPCKHDQ MM3,[esi+edi+1]
+	PUNPCKHDQ MM4,[eax*4+ebx+1]
+	PUNPCKHDQ MM5,[ebp+8]
+	PUNPCKHDQ MM6,[edx+100h]
+	PUNPCKHDQ MM7,DATADWORD
+
+	PACKSSDW MM0,MM7
+	PACKSSDW MM1,MM6
+	PACKSSDW MM2,MM5
+	PACKSSDW MM3,MM4
+	PACKSSDW MM4,MM3
+	PACKSSDW MM5,MM2
+	PACKSSDW MM6,MM1
+	PACKSSDW MM7,MM0
+	PACKSSDW MM0,[eax]
+	PACKSSDW MM1,[ebx*4]
+	PACKSSDW MM2,[ecx+edx]
+	PACKSSDW MM3,[esi+edi+1]
+	PACKSSDW MM4,[eax*4+ebx+1]
+	PACKSSDW MM5,[ebp+8]
+	PACKSSDW MM6,[edx+100h]
+	PACKSSDW MM7,DATADWORD
+
+	PCMPEQB MM0,MM7
+	PCMPEQB MM1,MM6
+	PCMPEQB MM2,MM5
+	PCMPEQB MM3,MM4
+	PCMPEQB MM4,MM3
+	PCMPEQB MM5,MM2
+	PCMPEQB MM6,MM1
+	PCMPEQB MM7,MM0
+	PCMPEQB MM0,[eax]
+	PCMPEQB MM1,[ebx*4]
+	PCMPEQB MM2,[ecx+edx]
+	PCMPEQB MM3,[esi+edi+1]
+	PCMPEQB MM4,[eax*4+ebx+1]
+	PCMPEQB MM5,[ebp+8]
+	PCMPEQB MM6,[edx+100h]
+	PCMPEQB MM7,DATADWORD
+
+	PCMPEQW MM0,MM7
+	PCMPEQW MM1,MM6
+	PCMPEQW MM2,MM5
+	PCMPEQW MM3,MM4
+	PCMPEQW MM4,MM3
+	PCMPEQW MM5,MM2
+	PCMPEQW MM6,MM1
+	PCMPEQW MM7,MM0
+	PCMPEQW MM0,[eax]
+	PCMPEQW MM1,[ebx*4]
+	PCMPEQW MM2,[ecx+edx]
+	PCMPEQW MM3,[esi+edi+1]
+	PCMPEQW MM4,[eax*4+ebx+1]
+	PCMPEQW MM5,[ebp+8]
+	PCMPEQW MM6,[edx+100h]
+	PCMPEQW MM7,DATADWORD
+
+	PCMPEQD MM0,MM7
+	PCMPEQD MM1,MM6
+	PCMPEQD MM2,MM5
+	PCMPEQD MM3,MM4
+	PCMPEQD MM4,MM3
+	PCMPEQD MM5,MM2
+	PCMPEQD MM6,MM1
+	PCMPEQD MM7,MM0
+	PCMPEQD MM0,[eax]
+	PCMPEQD MM1,[ebx*4]
+	PCMPEQD MM2,[ecx+edx]
+	PCMPEQD MM3,[esi+edi+1]
+	PCMPEQD MM4,[eax*4+ebx+1]
+	PCMPEQD MM5,[ebp+8]
+	PCMPEQD MM6,[edx+100h]
+	PCMPEQD MM7,DATADWORD
+
+	PSRLW MM0,MM7
+	PSRLW MM1,MM6
+	PSRLW MM2,MM5
+	PSRLW MM3,MM4
+	PSRLW MM4,MM3
+	PSRLW MM5,MM2
+	PSRLW MM6,MM1
+	PSRLW MM7,MM0
+	PSRLW MM0,[eax]
+	PSRLW MM1,[ebx*4]
+	PSRLW MM2,[ecx+edx]
+	PSRLW MM3,[esi+edi+1]
+	PSRLW MM4,[eax*4+ebx+1]
+	PSRLW MM5,[ebp+8]
+	PSRLW MM6,[edx+100h]
+	PSRLW MM7,DATADWORD
+
+	PSRLD MM0,MM7
+	PSRLD MM1,MM6
+	PSRLD MM2,MM5
+	PSRLD MM3,MM4
+	PSRLD MM4,MM3
+	PSRLD MM5,MM2
+	PSRLD MM6,MM1
+	PSRLD MM7,MM0
+	PSRLD MM0,[eax]
+	PSRLD MM1,[ebx*4]
+	PSRLD MM2,[ecx+edx]
+	PSRLD MM3,[esi+edi+1]
+	PSRLD MM4,[eax*4+ebx+1]
+	PSRLD MM5,[ebp+8]
+	PSRLD MM6,[edx+100h]
+	PSRLD MM7,DATADWORD
+
+	PSRLQ MM0,MM7
+	PSRLQ MM1,MM6
+	PSRLQ MM2,MM5
+	PSRLQ MM3,MM4
+	PSRLQ MM4,MM3
+	PSRLQ MM5,MM2
+	PSRLQ MM6,MM1
+	PSRLQ MM7,MM0
+	PSRLQ MM0,[eax]
+	PSRLQ MM1,[ebx*4]
+	PSRLQ MM2,[ecx+edx]
+	PSRLQ MM3,[esi+edi+1]
+	PSRLQ MM4,[eax*4+ebx+1]
+	PSRLQ MM5,[ebp+8]
+	PSRLQ MM6,[edx+100h]
+	PSRLQ MM7,DATADWORD
+
+	PMULLW MM0,MM7
+	PMULLW MM1,MM6
+	PMULLW MM2,MM5
+	PMULLW MM3,MM4
+	PMULLW MM4,MM3
+	PMULLW MM5,MM2
+	PMULLW MM6,MM1
+	PMULLW MM7,MM0
+	PMULLW MM0,[eax]
+	PMULLW MM1,[ebx*4]
+	PMULLW MM2,[ecx+edx]
+	PMULLW MM3,[esi+edi+1]
+	PMULLW MM4,[eax*4+ebx+1]
+	PMULLW MM5,[ebp+8]
+	PMULLW MM6,[edx+100h]
+	PMULLW MM7,DATADWORD
+
+	PSUBUSB MM0,MM7
+	PSUBUSB MM1,MM6
+	PSUBUSB MM2,MM5
+	PSUBUSB MM3,MM4
+	PSUBUSB MM4,MM3
+	PSUBUSB MM5,MM2
+	PSUBUSB MM6,MM1
+	PSUBUSB MM7,MM0
+	PSUBUSB MM0,[eax]
+	PSUBUSB MM1,[ebx*4]
+	PSUBUSB MM2,[ecx+edx]
+	PSUBUSB MM3,[esi+edi+1]
+	PSUBUSB MM4,[eax*4+ebx+1]
+	PSUBUSB MM5,[ebp+8]
+	PSUBUSB MM6,[edx+100h]
+	PSUBUSB MM7,DATADWORD
+
+	PSUBUSW MM0,MM7
+	PSUBUSW MM1,MM6
+	PSUBUSW MM2,MM5
+	PSUBUSW MM3,MM4
+	PSUBUSW MM4,MM3
+	PSUBUSW MM5,MM2
+	PSUBUSW MM6,MM1
+	PSUBUSW MM7,MM0
+	PSUBUSW MM0,[eax]
+	PSUBUSW MM1,[ebx*4]
+	PSUBUSW MM2,[ecx+edx]
+	PSUBUSW MM3,[esi+edi+1]
+	PSUBUSW MM4,[eax*4+ebx+1]
+	PSUBUSW MM5,[ebp+8]
+	PSUBUSW MM6,[edx+100h]
+	PSUBUSW MM7,DATADWORD
+
+	PAND MM0,MM7
+	PAND MM1,MM6
+	PAND MM2,MM5
+	PAND MM3,MM4
+	PAND MM4,MM3
+	PAND MM5,MM2
+	PAND MM6,MM1
+	PAND MM7,MM0
+	PAND MM0,[eax]
+	PAND MM1,[ebx*4]
+	PAND MM2,[ecx+edx]
+	PAND MM3,[esi+edi+1]
+	PAND MM4,[eax*4+ebx+1]
+	PAND MM5,[ebp+8]
+	PAND MM6,[edx+100h]
+	PAND MM7,DATADWORD
+
+	PADDUSB MM0,MM7
+	PADDUSB MM1,MM6
+	PADDUSB MM2,MM5
+	PADDUSB MM3,MM4
+	PADDUSB MM4,MM3
+	PADDUSB MM5,MM2
+	PADDUSB MM6,MM1
+	PADDUSB MM7,MM0
+	PADDUSB MM0,[eax]
+	PADDUSB MM1,[ebx*4]
+	PADDUSB MM2,[ecx+edx]
+	PADDUSB MM3,[esi+edi+1]
+	PADDUSB MM4,[eax*4+ebx+1]
+	PADDUSB MM5,[ebp+8]
+	PADDUSB MM6,[edx+100h]
+	PADDUSB MM7,DATADWORD
+
+	PADDUSW MM0,MM7
+	PADDUSW MM1,MM6
+	PADDUSW MM2,MM5
+	PADDUSW MM3,MM4
+	PADDUSW MM4,MM3
+	PADDUSW MM5,MM2
+	PADDUSW MM6,MM1
+	PADDUSW MM7,MM0
+	PADDUSW MM0,[eax]
+	PADDUSW MM1,[ebx*4]
+	PADDUSW MM2,[ecx+edx]
+	PADDUSW MM3,[esi+edi+1]
+	PADDUSW MM4,[eax*4+ebx+1]
+	PADDUSW MM5,[ebp+8]
+	PADDUSW MM6,[edx+100h]
+	PADDUSW MM7,DATADWORD
+
+	PANDN MM0,MM7
+	PANDN MM1,MM6
+	PANDN MM2,MM5
+	PANDN MM3,MM4
+	PANDN MM4,MM3
+	PANDN MM5,MM2
+	PANDN MM6,MM1
+	PANDN MM7,MM0
+	PANDN MM0,[eax]
+	PANDN MM1,[ebx*4]
+	PANDN MM2,[ecx+edx]
+	PANDN MM3,[esi+edi+1]
+	PANDN MM4,[eax*4+ebx+1]
+	PANDN MM5,[ebp+8]
+	PANDN MM6,[edx+100h]
+	PANDN MM7,DATADWORD
+
+	PSRAW MM0,MM7
+	PSRAW MM1,MM6
+	PSRAW MM2,MM5
+	PSRAW MM3,MM4
+	PSRAW MM4,MM3
+	PSRAW MM5,MM2
+	PSRAW MM6,MM1
+	PSRAW MM7,MM0
+	PSRAW MM0,[eax]
+	PSRAW MM1,[ebx*4]
+	PSRAW MM2,[ecx+edx]
+	PSRAW MM3,[esi+edi+1]
+	PSRAW MM4,[eax*4+ebx+1]
+	PSRAW MM5,[ebp+8]
+	PSRAW MM6,[edx+100h]
+	PSRAW MM7,DATADWORD
+
+	PSRAD MM0,MM7
+	PSRAD MM1,MM6
+	PSRAD MM2,MM5
+	PSRAD MM3,MM4
+	PSRAD MM4,MM3
+	PSRAD MM5,MM2
+	PSRAD MM6,MM1
+	PSRAD MM7,MM0
+	PSRAD MM0,[eax]
+	PSRAD MM1,[ebx*4]
+	PSRAD MM2,[ecx+edx]
+	PSRAD MM3,[esi+edi+1]
+	PSRAD MM4,[eax*4+ebx+1]
+	PSRAD MM5,[ebp+8]
+	PSRAD MM6,[edx+100h]
+	PSRAD MM7,DATADWORD
+
+	PMULHW MM0,MM7
+	PMULHW MM1,MM6
+	PMULHW MM2,MM5
+	PMULHW MM3,MM4
+	PMULHW MM4,MM3
+	PMULHW MM5,MM2
+	PMULHW MM6,MM1
+	PMULHW MM7,MM0
+	PMULHW MM0,[eax]
+	PMULHW MM1,[ebx*4]
+	PMULHW MM2,[ecx+edx]
+	PMULHW MM3,[esi+edi+1]
+	PMULHW MM4,[eax*4+ebx+1]
+	PMULHW MM5,[ebp+8]
+	PMULHW MM6,[edx+100h]
+	PMULHW MM7,DATADWORD
+
+	PSUBSB MM0,MM7
+	PSUBSB MM1,MM6
+	PSUBSB MM2,MM5
+	PSUBSB MM3,MM4
+	PSUBSB MM4,MM3
+	PSUBSB MM5,MM2
+	PSUBSB MM6,MM1
+	PSUBSB MM7,MM0
+	PSUBSB MM0,[eax]
+	PSUBSB MM1,[ebx*4]
+	PSUBSB MM2,[ecx+edx]
+	PSUBSB MM3,[esi+edi+1]
+	PSUBSB MM4,[eax*4+ebx+1]
+	PSUBSB MM5,[ebp+8]
+	PSUBSB MM6,[edx+100h]
+	PSUBSB MM7,DATADWORD
+
+	PSUBSW MM0,MM7
+	PSUBSW MM1,MM6
+	PSUBSW MM2,MM5
+	PSUBSW MM3,MM4
+	PSUBSW MM4,MM3
+	PSUBSW MM5,MM2
+	PSUBSW MM6,MM1
+	PSUBSW MM7,MM0
+	PSUBSW MM0,[eax]
+	PSUBSW MM1,[ebx*4]
+	PSUBSW MM2,[ecx+edx]
+	PSUBSW MM3,[esi+edi+1]
+	PSUBSW MM4,[eax*4+ebx+1]
+	PSUBSW MM5,[ebp+8]
+	PSUBSW MM6,[edx+100h]
+	PSUBSW MM7,DATADWORD
+
+	POR MM0,MM7
+	POR MM1,MM6
+	POR MM2,MM5
+	POR MM3,MM4
+	POR MM4,MM3
+	POR MM5,MM2
+	POR MM6,MM1
+	POR MM7,MM0
+	POR MM0,[eax]
+	POR MM1,[ebx*4]
+	POR MM2,[ecx+edx]
+	POR MM3,[esi+edi+1]
+	POR MM4,[eax*4+ebx+1]
+	POR MM5,[ebp+8]
+	POR MM6,[edx+100h]
+	POR MM7,DATADWORD
+
+	PADDSB MM0,MM7
+	PADDSB MM1,MM6
+	PADDSB MM2,MM5
+	PADDSB MM3,MM4
+	PADDSB MM4,MM3
+	PADDSB MM5,MM2
+	PADDSB MM6,MM1
+	PADDSB MM7,MM0
+	PADDSB MM0,[eax]
+	PADDSB MM1,[ebx*4]
+	PADDSB MM2,[ecx+edx]
+	PADDSB MM3,[esi+edi+1]
+	PADDSB MM4,[eax*4+ebx+1]
+	PADDSB MM5,[ebp+8]
+	PADDSB MM6,[edx+100h]
+	PADDSB MM7,DATADWORD
+
+	PADDSW MM0,MM7
+	PADDSW MM1,MM6
+	PADDSW MM2,MM5
+	PADDSW MM3,MM4
+	PADDSW MM4,MM3
+	PADDSW MM5,MM2
+	PADDSW MM6,MM1
+	PADDSW MM7,MM0
+	PADDSW MM0,[eax]
+	PADDSW MM1,[ebx*4]
+	PADDSW MM2,[ecx+edx]
+	PADDSW MM3,[esi+edi+1]
+	PADDSW MM4,[eax*4+ebx+1]
+	PADDSW MM5,[ebp+8]
+	PADDSW MM6,[edx+100h]
+	PADDSW MM7,DATADWORD
+
+	PXOR MM0,MM7
+	PXOR MM1,MM6
+	PXOR MM2,MM5
+	PXOR MM3,MM4
+	PXOR MM4,MM3
+	PXOR MM5,MM2
+	PXOR MM6,MM1
+	PXOR MM7,MM0
+	PXOR MM0,[eax]
+	PXOR MM1,[ebx*4]
+	PXOR MM2,[ecx+edx]
+	PXOR MM3,[esi+edi+1]
+	PXOR MM4,[eax*4+ebx+1]
+	PXOR MM5,[ebp+8]
+	PXOR MM6,[edx+100h]
+	PXOR MM7,DATADWORD
+
+	PSLLW MM0,MM7
+	PSLLW MM1,MM6
+	PSLLW MM2,MM5
+	PSLLW MM3,MM4
+	PSLLW MM4,MM3
+	PSLLW MM5,MM2
+	PSLLW MM6,MM1
+	PSLLW MM7,MM0
+	PSLLW MM0,[eax]
+	PSLLW MM1,[ebx*4]
+	PSLLW MM2,[ecx+edx]
+	PSLLW MM3,[esi+edi+1]
+	PSLLW MM4,[eax*4+ebx+1]
+	PSLLW MM5,[ebp+8]
+	PSLLW MM6,[edx+100h]
+	PSLLW MM7,DATADWORD
+
+	PSLLD MM0,MM7
+	PSLLD MM1,MM6
+	PSLLD MM2,MM5
+	PSLLD MM3,MM4
+	PSLLD MM4,MM3
+	PSLLD MM5,MM2
+	PSLLD MM6,MM1
+	PSLLD MM7,MM0
+	PSLLD MM0,[eax]
+	PSLLD MM1,[ebx*4]
+	PSLLD MM2,[ecx+edx]
+	PSLLD MM3,[esi+edi+1]
+	PSLLD MM4,[eax*4+ebx+1]
+	PSLLD MM5,[ebp+8]
+	PSLLD MM6,[edx+100h]
+	PSLLD MM7,DATADWORD
+
+	PSLLQ MM0,MM7
+	PSLLQ MM1,MM6
+	PSLLQ MM2,MM5
+	PSLLQ MM3,MM4
+	PSLLQ MM4,MM3
+	PSLLQ MM5,MM2
+	PSLLQ MM6,MM1
+	PSLLQ MM7,MM0
+	PSLLQ MM0,[eax]
+	PSLLQ MM1,[ebx*4]
+	PSLLQ MM2,[ecx+edx]
+	PSLLQ MM3,[esi+edi+1]
+	PSLLQ MM4,[eax*4+ebx+1]
+	PSLLQ MM5,[ebp+8]
+	PSLLQ MM6,[edx+100h]
+	PSLLQ MM7,DATADWORD
+
+	PMADDWD MM0,MM7
+	PMADDWD MM1,MM6
+	PMADDWD MM2,MM5
+	PMADDWD MM3,MM4
+	PMADDWD MM4,MM3
+	PMADDWD MM5,MM2
+	PMADDWD MM6,MM1
+	PMADDWD MM7,MM0
+	PMADDWD MM0,[eax]
+	PMADDWD MM1,[ebx*4]
+	PMADDWD MM2,[ecx+edx]
+	PMADDWD MM3,[esi+edi+1]
+	PMADDWD MM4,[eax*4+ebx+1]
+	PMADDWD MM5,[ebp+8]
+	PMADDWD MM6,[edx+100h]
+	PMADDWD MM7,DATADWORD
+
+	PSUBB MM0,MM7
+	PSUBB MM1,MM6
+	PSUBB MM2,MM5
+	PSUBB MM3,MM4
+	PSUBB MM4,MM3
+	PSUBB MM5,MM2
+	PSUBB MM6,MM1
+	PSUBB MM7,MM0
+	PSUBB MM0,[eax]
+	PSUBB MM1,[ebx*4]
+	PSUBB MM2,[ecx+edx]
+	PSUBB MM3,[esi+edi+1]
+	PSUBB MM4,[eax*4+ebx+1]
+	PSUBB MM5,[ebp+8]
+	PSUBB MM6,[edx+100h]
+	PSUBB MM7,DATADWORD
+
+	PADDB MM0,MM7
+	PADDB MM1,MM6
+	PADDB MM2,MM5
+	PADDB MM3,MM4
+	PADDB MM4,MM3
+	PADDB MM5,MM2
+	PADDB MM6,MM1
+	PADDB MM7,MM0
+	PADDB MM0,[eax]
+	PADDB MM1,[ebx*4]
+	PADDB MM2,[ecx+edx]
+	PADDB MM3,[esi+edi+1]
+	PADDB MM4,[eax*4+ebx+1]
+	PADDB MM5,[ebp+8]
+	PADDB MM6,[edx+100h]
+	PADDB MM7,DATADWORD
+
+	PSUBW MM0,MM7
+	PSUBW MM1,MM6
+	PSUBW MM2,MM5
+	PSUBW MM3,MM4
+	PSUBW MM4,MM3
+	PSUBW MM5,MM2
+	PSUBW MM6,MM1
+	PSUBW MM7,MM0
+	PSUBW MM0,[eax]
+	PSUBW MM1,[ebx*4]
+	PSUBW MM2,[ecx+edx]
+	PSUBW MM3,[esi+edi+1]
+	PSUBW MM4,[eax*4+ebx+1]
+	PSUBW MM5,[ebp+8]
+	PSUBW MM6,[edx+100h]
+	PSUBW MM7,DATADWORD
+
+	PSUBD MM0,MM7
+	PSUBD MM1,MM6
+	PSUBD MM2,MM5
+	PSUBD MM3,MM4
+	PSUBD MM4,MM3
+	PSUBD MM5,MM2
+	PSUBD MM6,MM1
+	PSUBD MM7,MM0
+	PSUBD MM0,[eax]
+	PSUBD MM1,[ebx*4]
+	PSUBD MM2,[ecx+edx]
+	PSUBD MM3,[esi+edi+1]
+	PSUBD MM4,[eax*4+ebx+1]
+	PSUBD MM5,[ebp+8]
+	PSUBD MM6,[edx+100h]
+	PSUBD MM7,DATADWORD
+
+	PADDW MM0,MM7
+	PADDW MM1,MM6
+	PADDW MM2,MM5
+	PADDW MM3,MM4
+	PADDW MM4,MM3
+	PADDW MM5,MM2
+	PADDW MM6,MM1
+	PADDW MM7,MM0
+	PADDW MM0,[eax]
+	PADDW MM1,[ebx*4]
+	PADDW MM2,[ecx+edx]
+	PADDW MM3,[esi+edi+1]
+	PADDW MM4,[eax*4+ebx+1]
+	PADDW MM5,[ebp+8]
+	PADDW MM6,[edx+100h]
+	PADDW MM7,DATADWORD
+
+	PADDD MM0,MM7
+	PADDD MM1,MM6
+	PADDD MM2,MM5
+	PADDD MM3,MM4
+	PADDD MM4,MM3
+	PADDD MM5,MM2
+	PADDD MM6,MM1
+	PADDD MM7,MM0
+	PADDD MM0,[eax]
+	PADDD MM1,[ebx*4]
+	PADDD MM2,[ecx+edx]
+	PADDD MM3,[esi+edi+1]
+	PADDD MM4,[eax*4+ebx+1]
+	PADDD MM5,[ebp+8]
+	PADDD MM6,[edx+100h]
+	PADDD MM7,DATADWORD
+
+TESTCODE32 ENDP
+
+
+
+CODE32	ENDS
+
+	END
+
